@@ -3,7 +3,7 @@ import ArgumentType from '../../extension-support/argument-type';
 import Cast from '../../util/cast';
 import MathUtil from '../../util/math-util';
 import translations from './translations.json';
-import blockIcon from './block-icon.svg';
+import blockIconSvg from './block-icon.svg';
 import {setCurrentLocale} from '../../../shared/current-locale';
 import {
     VENDOR_ID,
@@ -41,6 +41,20 @@ const setupTranslations = () => {
 };
 
 const EXTENSION_ID = 'wedo1';
+
+/**
+ * @rollup/plugin-image emits SVGs as URL-encoded data URIs that still contain spaces and quotes. The category menu
+ * places the icon inside a CSS url(), where those characters break it, so re-encode it as base64.
+ * @param {string} uri - data URI emitted by the image plugin
+ * @returns {string} - base64 data URI
+ */
+const toBase64SvgDataURI = uri => {
+    const prefix = 'data:image/svg+xml,';
+    if (!uri.startsWith(prefix)) return uri;
+    return `data:image/svg+xml;base64,${btoa(decodeURIComponent(uri.slice(prefix.length)))}`;
+};
+
+const blockIcon = toBase64SvgDataURI(blockIconSvg);
 
 /**
  * URL to get this extension as a module.

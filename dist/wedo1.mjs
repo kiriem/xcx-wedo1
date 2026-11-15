@@ -30,7 +30,7 @@ var translations$1 = {
 }
 };
 
-var version$1 = "0.1.3";
+var version$1 = "0.1.4";
 
 // The block class learns the editor's locale from the VM. The GUI entry reads it here so its connection messages can
 // be translated even before Xcratch hands the entry a formatter, which only happens when the extension library opens.
@@ -1243,6 +1243,19 @@ var setupTranslations = function setupTranslations() {
 var EXTENSION_ID = 'wedo1';
 
 /**
+ * @rollup/plugin-image emits SVGs as URL-encoded data URIs that still contain spaces and quotes. The category menu
+ * places the icon inside a CSS url(), where those characters break it, so re-encode it as base64.
+ * @param {string} uri - data URI emitted by the image plugin
+ * @returns {string} - base64 data URI
+ */
+var toBase64SvgDataURI = function toBase64SvgDataURI(uri) {
+  var prefix = 'data:image/svg+xml,';
+  if (!uri.startsWith(prefix)) return uri;
+  return "data:image/svg+xml;base64,".concat(btoa(decodeURIComponent(uri.slice(prefix.length))));
+};
+var blockIcon = toBase64SvgDataURI(img);
+
+/**
  * URL to get this extension as a module.
  * When it was loaded as a module, 'extensionURL' will be replaced a URL which is retrieved from.
  * @type {string}
@@ -1671,7 +1684,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         id: ExtensionBlocks.EXTENSION_ID,
         name: ExtensionBlocks.EXTENSION_NAME,
         extensionURL: ExtensionBlocks.extensionURL,
-        blockIconURI: img,
+        blockIconURI: blockIcon,
         showStatusButton: true,
         blocks: [{
           opcode: 'motorOnFor',
