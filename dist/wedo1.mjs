@@ -30,7 +30,7 @@ var translations$1 = {
 }
 };
 
-var version$1 = "0.1.1";
+var version$1 = "0.1.2";
 
 // The block class learns the editor's locale from the VM. The GUI entry reads it here so its connection messages can
 // be translated even before Xcratch hands the entry a formatter, which only happens when the extension library opens.
@@ -1148,10 +1148,12 @@ var TILT_BANDS = [{
   direction: TiltDirection.LEFT
 }];
 
+// Measured on a real motion sensor (9583): it idles at 68 with nothing in front and peaks around 204-206 with a
+// hand right against it.
 /** Raw distance value when nothing is in front of the sensor. */
-var DISTANCE_RAW_FAR = 69;
-/** Raw distance value when an object touches the sensor. */
-var DISTANCE_RAW_NEAR = 140;
+var DISTANCE_RAW_FAR = 68;
+/** Raw distance value when an object is right against the sensor. */
+var DISTANCE_RAW_NEAR = 205;
 
 /**
  * @param {number} id - identification byte for a port.
