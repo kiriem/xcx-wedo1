@@ -1,0 +1,23 @@
+{
+  "en": {
+    "wedo1.entry.name": "LEGO WeDo 1.0",
+    "wedo1.entry.description": "Control the USB WeDo 1.0 hub's motors and sensors.",
+    "wedo1.entry.prescanMessage": "Plug your LEGO WeDo 1.0 hub into a USB port, then press the button below and choose it from the browser's list.",
+    "wedo1.entry.scanBeginMessage": "Choose your LEGO WeDo 1.0 in the browser's list.",
+    "wedo1.entry.connectingMessage": "Connecting"
+  },
+  "ja": {
+    "wedo1.entry.name": "LEGO WeDo 1.0",
+    "wedo1.entry.description": "USB接続のWeDo 1.0ハブでモーターとセンサーを動かす。",
+    "wedo1.entry.prescanMessage": "LEGO WeDo 1.0 ハブをUSBポートにつないでから、下のボタンを押してブラウザーの一覧から選んでください。",
+    "wedo1.entry.scanBeginMessage": "ブラウザーの一覧から LEGO WeDo 1.0 を選んでください。",
+    "wedo1.entry.connectingMessage": "接続中"
+  },
+  "ja-Hira": {
+    "wedo1.entry.name": "LEGO WeDo 1.0",
+    "wedo1.entry.description": "USBでつなぐWeDo 1.0ハブでモーターとセンサーをうごかす。",
+    "wedo1.entry.prescanMessage": "LEGO WeDo 1.0 ハブをUSBポートにつないでから、したのボタンをおしてブラウザーのいちらんからえらんでね。",
+    "wedo1.entry.scanBeginMessage": "ブラウザーのいちらんから LEGO WeDo 1.0 をえらんでね。",
+    "wedo1.entry.connectingMessage": "せつぞくちゅう"
+  }
+}
