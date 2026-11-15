@@ -1,6 +1,6 @@
 {
   "name": "xcx-wedo1",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "LEGO WeDo 1.0 (USB) extension for Xcratch",
   "extensionId": "wedo1",
   "scripts": {

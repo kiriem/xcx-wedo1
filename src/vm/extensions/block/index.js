@@ -4,6 +4,7 @@ import Cast from '../../util/cast';
 import MathUtil from '../../util/math-util';
 import translations from './translations.json';
 import blockIcon from './block-icon.svg';
+import {setCurrentLocale} from '../../../shared/current-locale';
 import {
     VENDOR_ID,
     PRODUCT_ID,
@@ -30,6 +31,7 @@ let formatMessage = messageData => messageData.default;
  */
 const setupTranslations = () => {
     const localeSetup = formatMessage.setup();
+    if (localeSetup) setCurrentLocale(localeSetup.locale);
     if (localeSetup && localeSetup.translations[localeSetup.locale]) {
         Object.assign(
             localeSetup.translations[localeSetup.locale],
