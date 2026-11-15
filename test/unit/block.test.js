@@ -64,6 +64,15 @@ describe('protocol', () => {
         expect(distanceFromRaw(255)).toBe(0);
     });
 
+    test('distanceFromRaw spans the range measured on a real motion sensor', () => {
+        // Idle reading with nothing in front, mid-approach, and a hand right against the sensor.
+        expect(distanceFromRaw(68)).toBe(100);
+        const mid = distanceFromRaw(141);
+        expect(mid).toBeGreaterThan(40);
+        expect(mid).toBeLessThan(60);
+        expect(distanceFromRaw(205)).toBe(0);
+    });
+
     test('powerToPwm', () => {
         expect(powerToPwm(0, 1)).toBe(0);
         expect(powerToPwm(100, 1)).toBe(127);

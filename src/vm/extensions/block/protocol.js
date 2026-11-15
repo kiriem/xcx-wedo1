@@ -70,10 +70,12 @@ const TILT_BANDS = [
     {below: 256, direction: TiltDirection.LEFT}
 ];
 
+// Measured on a real motion sensor (9583): it idles at 68 with nothing in front and peaks around 204-206 with a
+// hand right against it.
 /** Raw distance value when nothing is in front of the sensor. */
-const DISTANCE_RAW_FAR = 69;
-/** Raw distance value when an object touches the sensor. */
-const DISTANCE_RAW_NEAR = 140;
+const DISTANCE_RAW_FAR = 68;
+/** Raw distance value when an object is right against the sensor. */
+const DISTANCE_RAW_NEAR = 205;
 
 /**
  * @param {number} id - identification byte for a port.
