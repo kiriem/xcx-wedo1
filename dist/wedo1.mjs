@@ -30,7 +30,17 @@ var translations$1 = {
 }
 };
 
-var version$1 = "0.1.0";
+var version$1 = "0.1.1";
+
+// The block class learns the editor's locale from the VM. The GUI entry reads it here so its connection messages can
+// be translated even before Xcratch hands the entry a formatter, which only happens when the extension library opens.
+var currentLocale = null;
+var setCurrentLocale = function setCurrentLocale(locale) {
+  currentLocale = locale;
+};
+var getCurrentLocale = function getCurrentLocale() {
+  return currentLocale;
+};
 
 /**
  * This is an extension for Xcratch.
@@ -46,10 +56,23 @@ var version$1 = "0.1.0";
 var formatMessage$1 = function formatMessage(messageData) {
   return messageData.defaultMessage;
 };
+
+/**
+ * Translate with this entry's own messages for the locale the VM reports, falling back to the injected formatter.
+ * Xcratch injects the formatter only when the extension library opens, so a connection modal shown right after
+ * loading this extension by URL would otherwise stay in English.
+ * @param {object} messageData - data for format-message
+ * @returns {string} - translated message for the current locale
+ */
+var translate = function translate(messageData) {
+  var messages = translations$1[getCurrentLocale()];
+  if (messages && messages[messageData.id]) return messages[messageData.id];
+  return formatMessage$1(messageData);
+};
 var version = "v".concat(version$1);
 var entry = {
   get name() {
-    return formatMessage$1({
+    return translate({
       id: 'wedo1.entry.name',
       defaultMessage: 'LEGO WeDo 1.0',
       description: 'name of the extension'
@@ -61,7 +84,7 @@ var entry = {
   iconURL: img$3,
   insetIconURL: img$2,
   get description() {
-    return "".concat(formatMessage$1({
+    return "".concat(translate({
       defaultMessage: 'Control the USB WeDo 1.0 hub\'s motors and sensors.',
       description: 'Description for this extension',
       id: 'wedo1.entry.description'
@@ -78,7 +101,7 @@ var entry = {
   connectionSmallIconURL: img$2,
   connectionTipIconURL: img$1,
   get prescanMessage() {
-    return formatMessage$1({
+    return translate({
       // eslint-disable-next-line max-len
       defaultMessage: 'Plug your LEGO WeDo 1.0 hub into a USB port, then press the button below and choose it from the browser\'s list.',
       description: 'Prompt before searching for a LEGO WeDo 1.0',
@@ -86,14 +109,14 @@ var entry = {
     });
   },
   get scanBeginMessage() {
-    return formatMessage$1({
+    return translate({
       defaultMessage: 'Choose your LEGO WeDo 1.0 in the browser\'s list.',
       description: 'Information shown while the browser\'s USB device chooser is open',
       id: 'wedo1.entry.scanBeginMessage'
     });
   },
   get connectingMessage() {
-    return formatMessage$1({
+    return translate({
       defaultMessage: 'Connecting',
       description: 'Message to help people connect to their WeDo 1.0.',
       id: 'wedo1.entry.connectingMessage'
@@ -1210,6 +1233,7 @@ var formatMessage = function formatMessage(messageData) {
  */
 var setupTranslations = function setupTranslations() {
   var localeSetup = formatMessage.setup();
+  if (localeSetup) setCurrentLocale(localeSetup.locale);
   if (localeSetup && localeSetup.translations[localeSetup.locale]) {
     Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
   }
